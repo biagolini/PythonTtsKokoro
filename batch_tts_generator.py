@@ -26,6 +26,9 @@ pipeline = KPipeline(lang_code='a', repo_id='hexgrad/Kokoro-82M')
 # Get a sorted list of all .txt files in the input folder
 text_files = sorted(glob.glob(f"{input_folder}/*.txt"))
 
+# List to store the final MP3 file names and durations
+mp3_files_info = []
+
 # Process each text file
 for text_file in text_files:
     file_prefix = os.path.splitext(os.path.basename(text_file))[0]  # Extract filename without extension
@@ -82,7 +85,20 @@ for text_file in text_files:
         combined_audio.export(final_mp3_path, format="mp3", bitrate="192k")
         print(f'Compiled audio file generated: {final_mp3_path}')
 
+        # Get the duration in seconds
+        duration_seconds = len(combined_audio) / 1000  # Convert milliseconds to seconds
+
+        # Store file info
+        mp3_files_info.append(f"{file_prefix}.mp3 - {duration_seconds:.2f}")
+
         # Remove intermediate WAV files
         for wav_file in generated_wav_files:
             os.remove(wav_file)
             print(f"Removed: {wav_file}")
+
+# Save the MP3 files info to a text file
+output_txt_path = os.path.join(output_folder, "mp3_files_info.txt")
+with open(output_txt_path, "w", encoding="utf-8") as txt_file:
+    txt_file.write("\n".join(mp3_files_info))
+
+print(f"MP3 files information saved to: {output_txt_path}")
