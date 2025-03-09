@@ -6,8 +6,23 @@ This project provides a simple implementation of the Kokoro-82M text-to-speech (
 - Converts text into high-quality speech using the Kokoro-82M model.
 - Supports English and Portuguese languages.
 - Provides customizable options such as voice selection and speech speed.
-- Saves generated speech as `.wav` files.
-- Simple and easy-to-use Python scripts for generating speech.
+- Saves generated speech as `.mp3` files.
+- Includes multiple scripts for different functionalities.
+
+### Usage
+
+You can generate speech from text using the provided Python scripts.
+
+#### Repository Structure
+
+```plaintext
+├── simple_tts_demo_en.py   # Basic example of English speech generation.
+├── simple_tts_demo_pt.py   # Basic example of Portuguese speech generation.
+├── batch_tts_generator.py  # Processes multiple text files and generates MP3 files.
+├── requirements.txt        # List of required dependencies.
+├── input/                  # Directory for batch processing. Place txt files to be converted into audio.
+└── output/                 # Directory where generated audio files are saved.
+```
 
 ## Getting Started
 
@@ -49,26 +64,22 @@ sudo apt-get install espeak-ng -y
    pip install -r requirements.txt
    ```
 
-### Usage
-
-You can generate speech from text using the provided Python scripts.
-
+#### Generating Speech
 
 To generate English speech, run:
 ```bash
-python en.py
+python simple_tts_demo_en.py
 ```
 
 To generate Portuguese speech, run:
-
 ```bash
-python pt.py
+python simple_tts_demo_pt.py
 ```
 
-### Output Files
-The generated speech files will be stored in the `output` directory, named sequentially (e.g., `en_0.wav`, `pt_0.wav`).
-
-
+For batch processing of multiple text files:
+```bash
+python batch_tts_generator.py
+```
 
 ## Contributing
 
@@ -77,4 +88,3 @@ Feel free to submit issues, create pull requests, or fork the repository to help
 ## License and Disclaimer
 
 This project is open-source and distributed under the Apache License. For detailed licensing information, please refer to the official Kokoro-82M repository at: [Kokoro-82M Hugging Face](https://huggingface.co/hexgrad/Kokoro-82M).
-

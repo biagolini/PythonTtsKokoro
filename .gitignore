@@ -174,4 +174,7 @@ cython_debug/
 .pypirc
 
 # Output
-**/Output/**
+**/output/**
+
+# Input
+**/input/**
