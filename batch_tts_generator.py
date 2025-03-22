@@ -1,4 +1,5 @@
 import warnings  # Suppress warnings
+import json  # Library for reading JSON files
 from kokoro import KPipeline  # Import Kokoro-82M TTS pipeline
 from pydub import AudioSegment  # Library for audio processing
 import numpy as np  # Library for handling arrays
@@ -20,8 +21,20 @@ audio_gap_seconds = 0.30
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
-# Initialize the Kokoro-82M pipeline with English language support
-pipeline = KPipeline(lang_code='a', repo_id='hexgrad/Kokoro-82M')
+# Define the language setting (this should match a key in default_configs.json)
+selected_language = "en"  # Default language (can be changed to "es" or "pt")
+
+# Load language configurations from JSON file
+with open("default_configs.json", "r", encoding="utf-8") as json_file:
+    lang_configs = json.load(json_file)
+
+# Get the selected language configuration (fallback to English if key is missing)
+language_settings = lang_configs.get(selected_language, lang_configs["en"])
+lang_code = language_settings["lang_code"]
+voice = language_settings["voice"]
+
+# Initialize the Kokoro-82M pipeline with the selected language settings
+pipeline = KPipeline(lang_code=lang_code, repo_id='hexgrad/Kokoro-82M')
 
 # Get a sorted list of all .txt files in the input folder
 text_files = sorted(glob.glob(f"{input_folder}/*.txt"))
@@ -37,10 +50,10 @@ for text_file in text_files:
     with open(text_file, "r", encoding="utf-8") as file:
         text = file.read()
 
-    # Generate speech using the pipeline
+    # Generate speech using the pipeline with the selected voice
     generator = pipeline(
         text,
-        voice='af_heart',  # Best American voices: F = af_heart; M = am_michael
+        voice=voice,  # Dynamic voice selection based on JSON config
         speed=1,
         split_pattern=r'\n+'
     )

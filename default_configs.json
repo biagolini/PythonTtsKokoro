@@ -1,0 +1,14 @@
+{
+  "en": {
+    "lang_code": "a",
+    "voice": "af_heart"
+  },
+  "es": {
+    "lang_code": "e",
+    "voice": "ef_dora"
+  },
+  "pt": {
+    "lang_code": "p",
+    "voice": "pf_dora"
+  }
+}
