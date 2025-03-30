@@ -8,6 +8,7 @@ This project provides a simple implementation of the Kokoro-82M text-to-speech (
 - Provides customizable options such as voice selection and speech speed.
 - Saves generated speech as `.mp3` files.
 - Includes multiple scripts for different functionalities.
+- Supports automatic batch processing by language folder (`by_folder` mode).
 
 ### Usage
 
@@ -20,8 +21,10 @@ You can generate speech from text using the provided Python scripts.
 ├── simple_tts_demo_pt.py   # Basic example of Portuguese speech generation.
 ├── batch_tts_generator.py  # Processes multiple text files and generates MP3 files.
 ├── requirements.txt        # List of required dependencies.
-├── input/                  # Directory for batch processing. Place txt files to be converted into audio.
-└── output/                 # Directory where generated audio files are saved.
+├── input/                  # Directory for batch processing. Place txt files or language folders here.
+│   ├── en/                 # Example subfolder for English text files (used with by_folder mode).
+│   ├── pt/                 # Example subfolder for Portuguese text files.
+├── output/                 # Directory where generated audio files are saved.
 ```
 
 ## Getting Started
@@ -64,6 +67,12 @@ sudo apt-get install espeak-ng -y
    pip install -r requirements.txt
    ```
 
+4. **Prepare Input Folder**  
+   Create the input folder and subfolders for language-based batch processing if needed:
+   ```bash
+   mkdir -p input/en input/pt
+   ```
+
 #### Generating Speech
 
 To generate English speech, run:
@@ -81,6 +90,12 @@ For batch processing of multiple text files:
 python batch_tts_generator.py
 ```
 
+To use the `by_folder` mode, which processes multiple language folders (e.g., `input/en`, `input/pt`):
+```bash
+# Set selected_language = "by_folder" in batch_tts_generator.py before running
+python batch_tts_generator.py
+```
+
 ## Contributing
 
 Feel free to submit issues, create pull requests, or fork the repository to help improve the project.
@@ -88,3 +103,4 @@ Feel free to submit issues, create pull requests, or fork the repository to help
 ## License and Disclaimer
 
 This project is open-source and distributed under the Apache License. For detailed licensing information, please refer to the official Kokoro-82M repository at: [Kokoro-82M Hugging Face](https://huggingface.co/hexgrad/Kokoro-82M).
+
